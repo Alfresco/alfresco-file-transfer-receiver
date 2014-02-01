@@ -162,7 +162,7 @@ public class FileTransferReceiver implements TransferReceiver
 
             try
             {
-                SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+                SAXParserFactory saxParserFactory = getSAXParserFactory();
                 SAXParser parser = saxParserFactory.newSAXParser();
                 File snapshotFile = getSnapshotFile(fTransferId);
 
@@ -305,7 +305,7 @@ public class FileTransferReceiver implements TransferReceiver
             if (snapshotFile.exists())
             {
                 log.debug("snapshot does exist");
-                SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+                SAXParserFactory saxParserFactory = getSAXParserFactory();
                 SAXParser parser = saxParserFactory.newSAXParser();
                 OutputStreamWriter dest = new OutputStreamWriter(requsiteStream, "UTF-8");
 
@@ -1052,5 +1052,28 @@ public class FileTransferReceiver implements TransferReceiver
     public DbHelper getDbHelper()
     {
         return new DbHelperImpl(fileTransferInfoDAO, transactionService, sourceRepoId);
+    }
+    
+    private SAXParserFactory getSAXParserFactory()
+    {
+        SAXParserFactory spf = SAXParserFactory.newInstance();
+        try
+        {
+            spf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            spf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            spf.setFeature("http://xml.org/sax/features/use-entity-resolver2", false);
+        }
+        catch (RuntimeException rte)
+        {
+            //If any runtime exception occurs then simply rethrow it
+            throw rte;
+        } 
+        catch (Exception pce)
+        {
+            //If we get any other exception then we've failed to configure the parser factory securely.
+            //Log a warning and return the factory as is.
+            log.warn("Failed to configure SAXParserFactory securely", pce);
+        } 
+        return spf;
     }
 }
