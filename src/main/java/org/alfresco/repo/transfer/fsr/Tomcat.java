@@ -23,23 +23,24 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
+
 package org.alfresco.repo.transfer.fsr;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.apache.catalina.connector.Connector;
 
-public class FileTransferMainEmbedded
+public class Tomcat extends org.apache.catalina.startup.Tomcat
 {
-    /**
-     * @param args
-     */
-    public static void main(String[] args) throws Exception
+
+    @Override
+    public void setConnector(Connector connector)
     {
-        ApplicationContext appCtx = new ClassPathXmlApplicationContext("classpath*:ftr-launcher-context.xml");
-        Tomcat tomcat = (Tomcat) appCtx.getBean("embeddedTomcat");
-        tomcat.getConnector().setProperty("maxSwallowSize", "-1");
-        tomcat.addWebapp("/alfresco-ftr", System.getProperty("user.dir")+"/webapps/file-transfer-receiver.war");
-        tomcat.start();
-        tomcat.getServer().await();
+        super.setConnector(connector);
+        this.getService().addConnector(connector);
     }
+    
+    public void setSslConnector(Connector connector)
+    {
+        this.setConnector(connector);
+    }
+
 }
