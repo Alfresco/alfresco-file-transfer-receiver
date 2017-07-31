@@ -2,19 +2,48 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>alfresco-file-transfer-receiver</artifactId>
     <name>Alfresco File Transfer Receiver</name>
-    <parent>
-        <artifactId>alfresco-parent</artifactId>
-        <groupId>org.alfresco</groupId>
-        <version>5.3-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
-    </parent>
+    <version>5.3-SNAPSHOT</version>
     <packaging>war</packaging>
+
+    <parent>
+        <groupId>org.alfresco</groupId>
+        <artifactId>alfresco-super-pom</artifactId>
+        <version>8</version>
+    </parent>
+
+    <scm>
+        <connection>scm:git:git@github.com:Alfresco/alfresco-file-transfer-receiver.git</connection>
+        <developerConnection>scm:git:git@github.com:Alfresco/alfresco-file-transfer-receiver.git</developerConnection>
+        <url>https://github.com/Alfresco/alfresco-file-transfer-receiver</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>alfresco-internal</id>
+            <url>https://artifacts.alfresco.com/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>alfresco-internal-snapshots</id>
+            <url>https://artifacts.alfresco.com/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <properties>
+        <dependency.alfresco-repository.version>6.0</dependency.alfresco-repository.version>
+        <dependency.alfresco-remote-api.version>6.0</dependency.alfresco-remote-api.version>
+
+        <dependency.spring.version>3.2.17.RELEASE</dependency.spring.version>
+
+        <!-- Skip tests: they are not run in the Ant build, and they all fail... -->
+        <skipTests>true</skipTests>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.alfresco</groupId>
             <artifactId>alfresco-remote-api</artifactId>
-            <version>${project.version}</version>
+            <version>${dependency.alfresco-remote-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.derby</groupId>
@@ -31,6 +60,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -42,16 +72,11 @@
         <dependency>
             <groupId>org.alfresco</groupId>
             <artifactId>alfresco-repository</artifactId>
-            <version>${project.version}</version>
+            <version>${dependency.alfresco-repository.version}</version>
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <!-- Skip tests: they are not run in the Ant build, and they all fail... -->
-    <properties>
-        <skipTests>true</skipTests>
-    </properties>
 
     <build>
         <plugins>
@@ -68,9 +93,9 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
+                                    <groupId>org.alfresco</groupId>
                                     <artifactId>alfresco-repository</artifactId>
-                                    <version>${project.version}</version>
+                                    <version>${dependency.alfresco-repository.version}</version>
                                 </artifactItem>
                             </artifactItems>
                             <includes>alfresco/version.properties</includes>
@@ -82,7 +107,7 @@
 
         <resources>
             <resource>
-                <directory>config</directory>
+                <directory>src/main/resources</directory>
             </resource>
             <!-- Additional resource folder where version.properties was extracted -->
             <resource>
