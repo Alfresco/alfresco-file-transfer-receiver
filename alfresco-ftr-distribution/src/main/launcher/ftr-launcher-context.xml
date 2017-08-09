@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:ftr-launcher.properties</value>
+        </property>
+    </bean>
+    
+    <bean id="ftr.Connector" class="org.alfresco.repo.transfer.fsr.Http11Connector ">
+        <property name="port" value="${ftr.tomcat.portNum}" />
+    </bean>
+    <!--
+        See Apache Tomcat documentation for property definitions http://tomcat.apache.org/tomcat-7.0-doc/config/http.html
+        
+        ProtocolHandler and Protocol are not support, as they are baked into the class. This is necessary for Spring instantiations.
+        
+        Makes sure properties have values in ftr-launcher.properties, this way you don't override defaults with empty strings.
+    -->
+    <!--     
+    <bean id="ftr.sslConnector" class="org.alfresco.repo.transfer.fsr.Https11Connector ">
+        <property name="port" value="${ftr.tomcat.sslPortNum}" />
+        <property name="scheme" value="https" />
+        <property name="URIEncoding" value="UTF-8" />
+        <property name="clientAuth" value="${ftr.tomcat.clientAuth}" />
+        <property name="secure" value="true" />
+        <property name="SSLEnabled" value="true" />
+        
+        <property name="keystoreFile" value="${ftr.tomcat.keystoreFile}" />
+        <property name="keystorePass" value="${ftr.tomcat.keystorePassword}" />
+        <property name="keystoreProvider" value="${ftr.tomcat.keystoreProvider}" />
+        <property name="keystoreType" value="${ftr.tomcat.keystoreType}" />
+        <property name="keyAlias" value="${ftr.tomcat.keyAlias}" />
+        <property name="keyPass" value="${ftr.tomcat.keyPassword}" />
+         
+        <property name="truststoreFile" value="${ftr.tomcat.truststoreFile}" />
+        <property name="truststorePass" value="${ftr.tomcat.truststorePassword}" />
+        <property name="truststoreProvider" value="${ftr.tomcat.truststoreProvider}" />
+        <property name="truststoreType" value="${ftr.tomcat.truststoreType}" />
+    </bean>
+    -->
+
+    <bean id="embeddedTomcat" class="org.alfresco.repo.transfer.fsr.Tomcat">
+        <property name="baseDir" value="${ftr.tomcat.baseDir}" />
+        
+        <property name="connector" ref="ftr.Connector" />
+        <!-- SSL capable connector -->
+        <!-- <property name="sslConnector" ref="ftr.sslConnector" /> -->
+    </bean>
+
+</beans>
