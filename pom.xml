@@ -13,6 +13,7 @@
 
     <modules>
         <module>alfresco-ftr</module>
+        <module>alfresco-ftr-distribution</module>
     </modules>
 
     <scm>
@@ -38,9 +39,10 @@
 
         <dependency.alfresco-repository.version>6.0</dependency.alfresco-repository.version>
         <dependency.alfresco-remote-api.version>6.0</dependency.alfresco-remote-api.version>
+        <dependency.alfresco-content-repository.version>${project.version}</dependency.alfresco-content-repository.version>
 
         <dependency.spring.version>3.2.17.RELEASE</dependency.spring.version>
-
+        <dependency.tomcat.version>7.0.78</dependency.tomcat.version>
         <!-- Skip tests: they are not run in the Ant build, and they all fail... -->
         <skipTests>true</skipTests>
     </properties>

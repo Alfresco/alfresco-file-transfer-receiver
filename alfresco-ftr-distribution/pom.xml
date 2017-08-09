@@ -3,15 +3,17 @@
     <artifactId>alfresco-ftr-distribution</artifactId>
     <name>Alfresco File Transfer Receiver Distribution</name>
     <parent>
-        <artifactId>alfresco-packaging</artifactId>
+        <artifactId>alfresco-ftr-parent</artifactId>
         <groupId>org.alfresco</groupId>
         <version>5.3-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -55,7 +57,7 @@
         <dependency>
             <groupId>org.alfresco</groupId>
             <artifactId>alfresco-repository</artifactId>
-            <version>${project.version}</version>
+            <version>${dependency.alfresco-repository.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -93,8 +95,8 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.alfresco</groupId>
-                                    <artifactId>alfresco-platform</artifactId>
-                                    <version>${project.version}</version>
+                                    <artifactId>alfresco-content-repository</artifactId>
+                                    <version>${dependency.alfresco-content-repository.version}</version>
                                     <type>war</type>
                                     <includes>WEB-INF/classes/alfresco/version.properties</includes>
                                 </artifactItem>
