@@ -2,6 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>alfresco-ftr-distribution</artifactId>
     <name>Alfresco File Transfer Receiver Distribution</name>
+    <packaging>jar</packaging>
     <parent>
         <artifactId>alfresco-ftr-parent</artifactId>
         <groupId>org.alfresco</groupId>
@@ -63,7 +64,7 @@
     </dependencies>
 
     <build>
-        <finalName>alfresco-community-file-transfer-receiver-${project.version}</finalName>
+        <finalName>alfresco-file-transfer-receiver-${project.version}</finalName>
         <plugins>
             <!-- Build Launcher jar -->
             <plugin>
@@ -95,8 +96,8 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.alfresco</groupId>
-                                    <artifactId>alfresco-content-repository</artifactId>
-                                    <version>${dependency.alfresco-content-repository.version}</version>
+                                    <artifactId>content-services-community</artifactId>
+                                    <version>${dependency.content-services-community.version}</version>
                                     <type>war</type>
                                     <includes>WEB-INF/classes/alfresco/version.properties</includes>
                                 </artifactItem>
