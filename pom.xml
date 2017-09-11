@@ -1,15 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>alfresco-file-transfer-receiver</artifactId>
-    <name>Alfresco File Transfer Receiver</name>
+    <artifactId>alfresco-ftr-parent</artifactId>
+    <name>Alfresco File Transfer Receiver Parent</name>
     <version>5.3-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>org.alfresco</groupId>
         <artifactId>alfresco-super-pom</artifactId>
         <version>8</version>
     </parent>
+
+    <modules>
+        <module>alfresco-ftr</module>
+        <module>alfresco-ftr-distribution</module>
+    </modules>
 
     <scm>
         <connection>scm:git:git@github.com:Alfresco/alfresco-file-transfer-receiver.git</connection>
@@ -30,90 +35,16 @@
     </distributionManagement>
 
     <properties>
+        <licenseName>community</licenseName>
+
         <dependency.alfresco-repository.version>6.0</dependency.alfresco-repository.version>
         <dependency.alfresco-remote-api.version>6.0</dependency.alfresco-remote-api.version>
+        <dependency.content-services-community.version>${project.version}</dependency.content-services-community.version>
 
         <dependency.spring.version>3.2.17.RELEASE</dependency.spring.version>
-
+        <dependency.tomcat.version>7.0.78</dependency.tomcat.version>
         <!-- Skip tests: they are not run in the Ant build, and they all fail... -->
         <skipTests>true</skipTests>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.alfresco</groupId>
-            <artifactId>alfresco-remote-api</artifactId>
-            <version>${dependency.alfresco-remote-api.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.12.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbytools</artifactId>
-            <version>10.12.1.1</version>
-        </dependency>
-
-        <!-- Test dependencies -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${dependency.spring.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.alfresco</groupId>
-            <artifactId>alfresco-repository</artifactId>
-            <version>${dependency.alfresco-repository.version}</version>
-            <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <!-- Fetch version.properties in alfresco-repository -->
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>fetch-version-properties</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.alfresco</groupId>
-                                    <artifactId>alfresco-repository</artifactId>
-                                    <version>${dependency.alfresco-repository.version}</version>
-                                </artifactItem>
-                            </artifactItems>
-                            <includes>alfresco/version.properties</includes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <!-- Additional resource folder where version.properties was extracted -->
-            <resource>
-                <directory>${project.build.directory}/dependency/alfresco</directory>
-            </resource>
-        </resources>
-    </build>
 
 </project>
