@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>alfresco-ftr-parent</artifactId>
     <name>Alfresco File Transfer Receiver Parent</name>
-    <version>6.1</version>
+    <version>6.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -20,7 +20,7 @@
         <connection>scm:git:git@github.com:Alfresco/alfresco-file-transfer-receiver.git</connection>
         <developerConnection>scm:git:git@github.com:Alfresco/alfresco-file-transfer-receiver.git</developerConnection>
         <url>https://github.com/Alfresco/alfresco-file-transfer-receiver</url>
-        <tag>alfresco-ftr-parent-6.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
