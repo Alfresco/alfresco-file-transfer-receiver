@@ -57,29 +57,6 @@
 
     <build>
         <plugins>
-            <!-- Fetch version.properties in alfresco-repository -->
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>fetch-version-properties</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.alfresco</groupId>
-                                    <artifactId>alfresco-repository</artifactId>
-                                    <version>${dependency.alfresco-repository.version}</version>
-                                </artifactItem>
-                            </artifactItems>
-                            <includes>alfresco/version.properties</includes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
@@ -115,6 +92,19 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>parse-version</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
 
         <pluginManagement>
@@ -128,12 +118,19 @@
         </pluginManagement>
 
         <resources>
+            <!-- Allow replacing variables inside version.properties -->
             <resource>
                 <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>version.properties</exclude>
+                </excludes>
             </resource>
-            <!-- Additional resource folder where version.properties was extracted -->
             <resource>
-                <directory>${project.build.directory}/dependency/alfresco</directory>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>version.properties</include>
+                </includes>
+                <filtering>true</filtering>
             </resource>
         </resources>
     </build>

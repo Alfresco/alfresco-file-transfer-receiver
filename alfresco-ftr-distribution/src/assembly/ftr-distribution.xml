@@ -18,10 +18,6 @@
             <outputDirectory></outputDirectory>
             <destName>file-transfer-receiver.jar</destName>
         </file>
-        <file>
-            <source>${project.build.directory}/dependency/WEB-INF/classes/alfresco/version.properties</source>
-            <outputDirectory></outputDirectory>
-        </file>
     </files>
     <dependencySets>
         <dependencySet>
