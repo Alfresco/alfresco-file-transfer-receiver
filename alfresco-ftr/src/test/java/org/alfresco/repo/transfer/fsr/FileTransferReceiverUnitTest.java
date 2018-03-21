@@ -35,8 +35,6 @@ import org.alfresco.service.cmr.repository.NodeService;
 import org.alfresco.service.cmr.repository.StoreRef;
 import org.alfresco.service.cmr.transfer.TransferService2;
 import org.alfresco.util.BaseAlfrescoSpringTest;
-import org.junit.Before;
-import org.junit.Test;
 
 public class FileTransferReceiverUnitTest extends BaseAlfrescoSpringTest
 {
@@ -57,11 +55,11 @@ public class FileTransferReceiverUnitTest extends BaseAlfrescoSpringTest
     /**
      * Called during the transaction setup
      */
-    @Before
-    public void before() throws Exception
+    @SuppressWarnings(value={"deprecation"})
+    protected void onSetUp() throws Exception
     {
 
-        super.before();
+        super.onSetUp();
         // Get the required services
         this.transferService = (TransferService2)this.applicationContext.getBean("TransferService2");
         this.nodeService = (NodeService) this.applicationContext.getBean("nodeService");
@@ -73,7 +71,6 @@ public class FileTransferReceiverUnitTest extends BaseAlfrescoSpringTest
      *
      * @throws Exception
      */
-    @Test
     public void testCreateTarget() throws Exception
     {
         if (!transferService.targetExists(TARGET_NAME))
