@@ -44,9 +44,13 @@
         <dependency.alfresco-remote-api.version>8.423</dependency.alfresco-remote-api.version>
 
         <dependency.spring.version>5.3.3</dependency.spring.version>
-        <dependency.tomcat.version>7.0.82</dependency.tomcat.version>
+        <dependency.tomcat.version>8.0.51</dependency.tomcat.version>
         <!-- Skip tests: they are not run in the Ant build, and they all fail... -->
 <!--        <skipTests>true</skipTests>-->
+        <java.version>9</java.version>
+        <maven.compiler.source>9</maven.compiler.source>
+        <maven.compiler.target>9</maven.compiler.target>
+        <maven.build.sourceVersion>9</maven.build.sourceVersion>
     </properties>
 
 </project>

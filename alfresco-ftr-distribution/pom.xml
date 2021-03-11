@@ -55,12 +55,12 @@
             <type>war</type>
             <scope>provided</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.alfresco</groupId>-->
-<!--            <artifactId>alfresco-repository</artifactId>-->
-<!--            <version>${dependency.alfresco-repository.version}</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.alfresco</groupId>
+            <artifactId>alfresco-repository</artifactId>
+            <version>${dependency.alfresco-repository.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
