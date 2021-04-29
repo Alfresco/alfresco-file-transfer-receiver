@@ -3,7 +3,7 @@
 echo "=========================== Starting Init Script ==========================="
 PS4="\[\e[35m\]+ \[\e[m\]"
 set -vex
-pushd "$(dirname "${BASH_SOURCE[0]}")/../../"
+pushd "$(dirname "${BASH_SOURCE[0]}")/../"
 
 mkdir -p ${HOME}/.m2 && cp -rf _ci/settings.xml ${HOME}/.m2/
 echo "${QUAY_PASSWORD}" | docker login -u="${QUAY_USERNAME}" --password-stdin quay.io
