@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>alfresco-ftr-parent</artifactId>
     <name>Alfresco File Transfer Receiver Parent</name>
-    <version>7.1-TEST6-SNAPSHOT</version>
+    <version>7.1-TEST7-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
