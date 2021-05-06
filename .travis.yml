@@ -41,7 +41,7 @@ jobs:
       script: travis_wait 60 bash _ci/maven_release.sh
       before_deploy:
         - mkdir -p deploy_dir
-        - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-*.amp" -printf "%f\n" | head -1)
+        - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-*.zip" -printf "%f\n" | head -1)
         - export VERSION=$(echo "${ARTIFACT}" | sed -e "s/^alfresco-file-transfer-receiver-//" -e "s/\.zip$//")
         - ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
         - echo "Local deploy_dir content:"
