@@ -8,6 +8,7 @@ git config user.email "${GIT_EMAIL}"
 
 mvn -B \
     -Dresume=false \
+    -Dmaven.javadoc.skip=true \
     -DignoreSnapshots \
     -Darguments=-DskipTests \
     -DscmCommentPrefix="[maven-release-plugin][skip ci] " \
