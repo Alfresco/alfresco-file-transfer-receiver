@@ -43,7 +43,7 @@ jobs:
         - mkdir -p deploy_dir
         - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-*.amp" -printf "%f\n" | head -1)
         - export VERSION=$(echo "${ARTIFACT}" | sed -e "s/^alfresco-file-transfer-receiver-//" -e "s/\.zip$//")
-        - ln "target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
+        - ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
         - echo "Local deploy_dir content:"
         - ls -lA deploy_dir
       deploy:
