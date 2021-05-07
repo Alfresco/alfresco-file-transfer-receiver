@@ -41,16 +41,10 @@ jobs:
       script: travis_wait 60 bash _ci/maven_release.sh
       before_deploy:
         - mkdir -p deploy_dir
+        - mvn dependency:copy-dependencies -DincludeArtifactIds=alfresco-file-transfer-receiver -DincludeGroupIds=alfresco-file-transfer-receiver -DoutputDirectory=/deploy_dir/
         - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-*.zip" -printf "%f\n" | head -1)
         - export VERSION=$(echo "${ARTIFACT}" | sed -e "s/^alfresco-file-transfer-receiver-//" -e "s/\.zip$//")
         - ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
-        - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-*.war" -printf "%f\n" | head -1)
-        - export VERSION=$(echo "${ARTIFACT}" | sed -e "s/^alfresco-file-transfer-receiver-//" -e "s/\.war$//")
-        - ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
-        - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-*.jar" -printf "%f\n" | head -1)
-        - export VERSION=$(echo "${ARTIFACT}" | sed -e "s/^alfresco-file-transfer-receiver-//" -e "s/\.jar$//")
-        - ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
-        - echo "Local deploy_dir content:"
         - ls -lA deploy_dir
       deploy:
         - provider: s3
