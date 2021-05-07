@@ -6,7 +6,7 @@
     <parent>
         <artifactId>alfresco-ftr-parent</artifactId>
         <groupId>org.alfresco</groupId>
-        <version>7.1-TEST19</version>
+        <version>7.1-TEST20-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
