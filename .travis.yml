@@ -18,15 +18,14 @@ branches:
     - master
     - /release\/.*/
     - /support\/.*/
-    - /feature\/.*/
 
 stages:
   - name: tests
     if: commit_message !~ /\[skip tests\]/
   - name: release
-    if: commit_message =~ /\[release\]/ AND branch ~= /^(master|support\/.+|release\/.+|feature\/.+)$/ AND type != pull_request AND fork = false
+    if: commit_message =~ /\[release\]/ AND branch ~= /^(master|support\/.+|release\/.+)$/ AND type != pull_request AND fork = false
   - name: publish
-    if: commit_message =~ /\[publish\]/ AND branch ~= /^(master|support\/.+|release\/.+|feature\/.+)$/ AND type != pull_request AND fork = false
+    if: commit_message =~ /\[publish\]/ AND branch ~= /^(master|support\/.+|release\/.+)$/ AND type != pull_request AND fork = false
 
 before_install: mkdir -p ${HOME}/.m2 && cp -rf _ci/settings.xml ${HOME}/.m2/
 
