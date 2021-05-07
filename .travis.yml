@@ -44,8 +44,7 @@ jobs:
         - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-*.zip" -printf "%f\n" | head -1)
         - export VERSION=$(echo "${ARTIFACT}" | sed -e "s/^alfresco-file-transfer-receiver-//" -e "s/\.zip$//")
         - ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
-        - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-*.jar" -printf "%f\n" | head -1)
-        - export VERSION=$(echo "${ARTIFACT}" | sed -e "s/^alfresco-file-transfer-receiver-//" -e "s/\.jar$//")
+        - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-${VERSION}.jar" -printf "%f\n" | head -1)
         - ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
         - mvn dependency:copy \
             -Dartifact=org.alfresco:alfresco-file-transfer-receiver-${VERSION}:war /
