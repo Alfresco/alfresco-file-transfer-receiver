@@ -29,5 +29,10 @@ and Alfresco Maven repository:
 ~~~
 The SNAPSHOT version of the artifact is **never** published.
 
+## Build and release process for 6.2
+
+For a complete walk-through check out the
+[build-and-release-101.MD](documentation/build-and-release-101.md) under the `documentation` folder.
+
 ### Contributing guide
 Please use [this guide](CONTRIBUTING.md) to make a contribution to the project.
