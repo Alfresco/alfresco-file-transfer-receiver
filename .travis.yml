@@ -46,7 +46,7 @@ jobs:
         - ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
         - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-*.jar" -printf "%f\n" | head -1)
         - export VERSION=$(echo "${ARTIFACT}" | sed -e "s/^alfresco-file-transfer-receiver-//" -e "s/\.jar$//")
-        - ln "alfresco-ftr-distribution/${VERSION}/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
+        - ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
         - mvn dependency:copy \
             -Dartifact=org.alfresco:alfresco-file-transfer-receiver-${VERSION}:war /
             -DoutputDirectory=/deploy_dir/
