@@ -46,9 +46,8 @@ jobs:
         - ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
         - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-${VERSION}.jar" -printf "%f\n" | head -1)
         - ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
-        - mvn dependency:copy \
-            -Dartifact=org.alfresco:alfresco-file-transfer-receiver-${VERSION}:war /
-            -DoutputDirectory=/deploy_dir/
+        - ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-${VERSION}.war" -printf "%f\n" | head -1)
+        - ln "alfresco-ftr/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
         - ls -lA deploy_dir
       deploy:
         - provider: s3
