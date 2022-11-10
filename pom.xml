@@ -42,6 +42,7 @@
 
         <dependency.spring.version>3.2.17.RELEASE</dependency.spring.version>
         <dependency.tomcat.version>7.0.82</dependency.tomcat.version>
+        <dependency.log4j2.version>2.19.0</dependency.log4j2.version>
         <!-- Skip tests: they are not run in the Ant build, and they all fail... -->
         <skipTests>true</skipTests>
     </properties>
