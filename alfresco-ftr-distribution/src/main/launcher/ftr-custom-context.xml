@@ -7,7 +7,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
         <property name="targetMethod" value="initLogging" />
         <property name="arguments">
             <list>
-                <value>classes/log4j.properties</value>
+                <value>classes/log4j2.properties</value>
             </list>
         </property>
     </bean>
