@@ -37,10 +37,10 @@
     <properties>
         <licenseName>community</licenseName>
 
-        <dependency.alfresco-repository.version>6.18</dependency.alfresco-repository.version>
-        <dependency.alfresco-remote-api.version>6.10</dependency.alfresco-remote-api.version>
+        <dependency.alfresco-repository.version>20.40</dependency.alfresco-repository.version>
+        <dependency.alfresco-remote-api.version>20.40</dependency.alfresco-remote-api.version>
 
-        <dependency.spring.version>3.2.17.RELEASE</dependency.spring.version>
+        <dependency.spring.version>5.3.22</dependency.spring.version>
         <dependency.tomcat.version>7.0.82</dependency.tomcat.version>
         <dependency.log4j2.version>2.19.0</dependency.log4j2.version>
         <!-- Skip tests: they are not run in the Ant build, and they all fail... -->
