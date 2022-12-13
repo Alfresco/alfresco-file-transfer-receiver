@@ -40,7 +40,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 
     <bean id="transactionAwaredataSource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
         <property name="targetDataSource">
-            <ref local="dataSource"/>
+            <ref bean="dataSource"/>
         </property>
     </bean>
 

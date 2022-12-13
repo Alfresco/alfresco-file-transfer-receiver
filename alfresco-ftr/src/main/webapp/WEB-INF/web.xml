@@ -13,16 +13,6 @@
       <param-value>/WEB-INF/web-application-context.xml</param-value>
    </context-param>
 
-   <context-param>
-      <description>Do not try to resolve web app root as file</description>
-      <param-name>log4jExposeWebAppRoot</param-name>
-      <param-value>false</param-value>
-   </context-param>
-
-   <listener>
-      <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-   </listener>
-
    <listener>
        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
    </listener>
