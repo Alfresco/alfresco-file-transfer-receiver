@@ -2,9 +2,7 @@
 set -ev
 
 # Use full history for release
-git checkout -B "${TRAVIS_BRANCH}"
-# Add email to link commits to user
-git config user.email "${GIT_EMAIL}"
+git checkout -B "${BRANCH_NAME}"
 
 mvn -B \
     -Dresume=false \
