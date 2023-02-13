@@ -18,6 +18,7 @@ env:
   MAVEN_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
   GIT_USERNAME: ${{ secrets.BOT_GITHUB_USERNAME }}
   GIT_PASSWORD: ${{ secrets.BOT_GITHUB_TOKEN }}
+  AWS_REGION: "eu-west-1"
 
 jobs:
   build:
