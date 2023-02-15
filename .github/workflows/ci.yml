@@ -1,0 +1,98 @@
+name: Alfresco File Transfer Receiver CI
+
+on:
+  pull_request:
+    branches:
+      - master
+      - release/**
+      - support/**
+  push:
+    branches:
+      - master
+      - release/**
+      - support/**
+  workflow_dispatch:
+
+env:
+  MAVEN_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+  MAVEN_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+  GIT_USERNAME: ${{ secrets.BOT_GITHUB_USERNAME }}
+  GIT_PASSWORD: ${{ secrets.BOT_GITHUB_TOKEN }}
+  AWS_REGION: "eu-west-1"
+
+jobs:
+  build:
+    name: "Unit Tests"
+    runs-on: ubuntu-latest
+    if: >
+      !contains(github.event.head_commit.message, '[skip tests]')
+    steps:
+      - uses: actions/checkout@v3
+      - uses: Alfresco/alfresco-build-tools/.github/actions/get-build-info@v1.34.2
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v1.34.2
+      - name: "Run tests"
+        run: mvn -B -U install
+
+  release:
+    name: "Release and Copy to S3 Staging Bucket"
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: >
+      (github.ref_name == 'master' || startsWith(github.ref_name, 'release/') || startsWith(github.ref_name, 'support/')) &&
+      github.event_name != 'pull_request' &&
+      contains(github.event.head_commit.message, '[release]')
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - uses: Alfresco/alfresco-build-tools/.github/actions/get-build-info@v1.34.2
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v1.34.2
+      - uses: Alfresco/alfresco-build-tools/.github/actions/configure-git-author@v1.34.2
+        with:
+          username: ${{ secrets.BOT_GITHUB_USERNAME }}
+          email: ${{ secrets.BOT_GITHUB_EMAIL }}
+      - name: "Release"
+        run: bash _ci/maven_release.sh
+      - name: "Move the final artifacts to a single folder (deploy_dir) to be copied to S3"
+        run: |
+          mkdir -p deploy_dir
+          ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-*.zip" -printf "%f\n" | head -1)
+          export VERSION=$(echo "${ARTIFACT}" | sed -e "s/^alfresco-file-transfer-receiver-//" -e "s/\.zip$//")
+          ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
+          ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-${VERSION}.jar" -printf "%f\n" | head -1)
+          ln "alfresco-ftr-distribution/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
+          ARTIFACT=$(find . -name "alfresco-file-transfer-receiver-${VERSION}.war" -printf "%f\n" | head -1)
+          ln "alfresco-ftr/target/${ARTIFACT}" "deploy_dir/${ARTIFACT}"
+          ls -lA deploy_dir
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_S3_STAGING_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_S3_STAGING_SECRET_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Deploy to S3"
+        run: |
+          aws s3 cp --acl private --recursive ./deploy_dir s3://alfresco-artefacts-staging/alfresco-file-transfer-receiver/release/${VERSION}
+          echo "Finished release and deployed to https://s3.console.aws.amazon.com/s3/buckets/alfresco-artefacts-staging/alfresco-file-transfer-receiver/release/${VERSION}"
+
+  publish:
+    name: "Copy to S3 Release Bucket"
+    runs-on: ubuntu-latest
+    needs: [release]
+    if: >
+      (github.ref_name == 'master' || startsWith(github.ref_name, 'release/') || startsWith(github.ref_name, 'support/')) &&
+      github.event_name != 'pull_request' &&
+      contains(github.event.head_commit.message, '[publish]')
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_S3_RELEASE_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_S3_RELEASE_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Deploy to S3 Release Bucket"
+        run: sh _ci/copy_to_release_bucket.sh
