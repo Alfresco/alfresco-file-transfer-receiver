@@ -38,6 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     if: >
+      !(failure() || cancelled()) &&
       (github.ref_name == 'master' || startsWith(github.ref_name, 'release/') || startsWith(github.ref_name, 'support/')) &&
       github.event_name != 'pull_request' &&
       contains(github.event.head_commit.message, '[release]')
@@ -81,6 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [release]
     if: >
+      !(failure() || cancelled()) &&
       (github.ref_name == 'master' || startsWith(github.ref_name, 'release/') || startsWith(github.ref_name, 'support/')) &&
       github.event_name != 'pull_request' &&
       contains(github.event.head_commit.message, '[publish]')
