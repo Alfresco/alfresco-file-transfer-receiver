@@ -11,7 +11,7 @@ DESTINATION="s3://eu.dl.alfresco.com/release/alfresco-file-transfer-receiver/${V
 echo "Source:      ${SOURCE}"
 echo "Destination: ${DESTINATION}"
 
-aws s3 cp --acl private "${SOURCE}" "${DESTINATION}" --recursive --include "*.*"
+aws s3 cp --acl private --copy-props none "${SOURCE}" "${DESTINATION}" --recursive --include "*.*"
 
 echo "========================== Finishing Copy to Release Bucket Script =========================="
 
