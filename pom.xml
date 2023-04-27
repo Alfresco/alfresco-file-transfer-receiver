@@ -37,8 +37,8 @@
     <properties>
         <licenseName>community</licenseName>
 
-        <dependency.alfresco-repository.version>20.146</dependency.alfresco-repository.version>
-        <dependency.alfresco-remote-api.version>20.146</dependency.alfresco-remote-api.version>
+        <dependency.alfresco-repository.version>20.157</dependency.alfresco-repository.version>
+        <dependency.alfresco-remote-api.version>20.157</dependency.alfresco-remote-api.version>
 
         <dependency.spring.version>5.3.22</dependency.spring.version>
         <dependency.tomcat.version>7.0.82</dependency.tomcat.version>
