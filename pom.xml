@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.alfresco</groupId>
         <artifactId>alfresco-super-pom</artifactId>
-        <version>9</version>
+        <version>12</version>
     </parent>
 
     <modules>
@@ -36,6 +36,12 @@
 
     <properties>
         <licenseName>community</licenseName>
+
+        <java.version>17</java.version>
+        <maven.build.sourceVersion>${java.version}</maven.build.sourceVersion>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <dependency.alfresco-repository.version>20.157</dependency.alfresco-repository.version>
         <dependency.alfresco-remote-api.version>20.157</dependency.alfresco-remote-api.version>
