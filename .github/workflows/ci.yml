@@ -27,9 +27,9 @@ jobs:
     if: >
       !contains(github.event.head_commit.message, '[skip tests]')
     steps:
-      - uses: actions/checkout@v3
-      - uses: Alfresco/alfresco-build-tools/.github/actions/get-build-info@v1.34.2
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v1.34.2
+      - uses: actions/checkout@v4
+      - uses: Alfresco/alfresco-build-tools/.github/actions/get-build-info@v7.0.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v7.0.0
       - name: "Run tests"
         run: mvn -B -U install
 
@@ -43,12 +43,12 @@ jobs:
       github.event_name != 'pull_request' &&
       contains(github.event.head_commit.message, '[release]')
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: Alfresco/alfresco-build-tools/.github/actions/get-build-info@v1.34.2
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v1.34.2
-      - uses: Alfresco/alfresco-build-tools/.github/actions/configure-git-author@v1.34.2
+      - uses: Alfresco/alfresco-build-tools/.github/actions/get-build-info@v7.0.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v7.0.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/configure-git-author@v7.0.0
         with:
           username: ${{ secrets.BOT_GITHUB_USERNAME }}
           email: ${{ secrets.BOT_GITHUB_EMAIL }}
@@ -67,7 +67,7 @@ jobs:
           ls -lA deploy_dir
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
       - name: "Configure AWS credentials"
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_S3_STAGING_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_S3_STAGING_SECRET_KEY }}
@@ -87,12 +87,12 @@ jobs:
       github.event_name != 'pull_request' &&
       contains(github.event.head_commit.message, '[publish]')
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
           fetch-depth: 0
       - name: "Configure AWS credentials"
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_S3_RELEASE_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_S3_RELEASE_SECRET_ACCESS_KEY }}
